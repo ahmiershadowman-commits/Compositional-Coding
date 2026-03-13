@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any
@@ -26,11 +27,11 @@ class LogStore:
     def append(self, event: LogEvent) -> None:
         self._events.append(event)
 
-    def query(self, filter: dict[str, Any]) -> list[LogEvent]:
+    def query(self, query_filter: dict[str, Any]) -> list[LogEvent]:
         return [
             e
             for e in self._events
-            if all(getattr(e, k) == v for k, v in filter.items() if hasattr(e, k))
+            if all(getattr(e, k) == v for k, v in query_filter.items() if hasattr(e, k))
         ]
 
     def summarize(self, task_id: str, branch_id: str | None = None) -> dict[str, Any]:
@@ -66,6 +67,8 @@ class DecisionStore:
         return rid
 
     def update(self, decision_id: str, patch: dict[str, Any]) -> None:
+        if decision_id not in self._records:
+            raise KeyError(f"Decision '{decision_id}' not found in store")
         self._records[decision_id].update(patch)
 
     def find_related(self, query: dict[str, Any]) -> list[dict[str, Any]]:
@@ -83,9 +86,11 @@ class ValidationLibrary:
             return list(self._recipes.values())
         return [r for r in self._recipes.values() if tags.intersection(set(r.get("tags", [])))]
 
-    def run(self, recipe_id: str, input: dict[str, Any]) -> dict[str, Any]:
+    def run(self, recipe_id: str, data: dict[str, Any]) -> dict[str, Any]:
+        if recipe_id not in self._recipes:
+            raise KeyError(f"Validation recipe '{recipe_id}' not found")
         recipe = self._recipes[recipe_id]
-        status = "pass" if input.get("status", "pass") == "pass" else "fail"
+        status = "pass" if data.get("status", "pass") == "pass" else "fail"
         return {"recipe_id": recipe_id, "status": status, "steps": recipe.get("steps", [])}
 
 
@@ -114,7 +119,7 @@ class ContextManager:
         self._ensure_task(task_id, from_branch_id)
         self._branch_count += 1
         to_branch = f"branch_{self._branch_count:03d}"
-        self._tasks[task_id][to_branch] = {k: dict(v) for k, v in self._tasks[task_id][from_branch_id].items()}
+        self._tasks[task_id][to_branch] = copy.deepcopy(self._tasks[task_id][from_branch_id])
         self._tasks[task_id][to_branch][ContextLaneType.METACOGNITIVE_STATE.value]["branch_reason"] = reason
         return to_branch
 

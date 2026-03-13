@@ -36,8 +36,8 @@ class NextAction:
 class CSPKernel:
     """Minimal CSP controller that canonicalizes process shape, not conclusions."""
 
-    def classify_task(self, input: TaskInput, context: dict) -> ProblemGeometry:
-        text = input.text.lower()
+    def classify_task(self, task_input: TaskInput, context: dict) -> ProblemGeometry:
+        text = task_input.text.lower()
         labels = ["mixed"]
         if any(k in text for k in ["constraint", "satisfy", "schedule", "sat", "smt"]):
             labels.append("constraint-rich")
@@ -57,11 +57,11 @@ class CSPKernel:
             patterns.append(CSPPatternActivation("response-pathway-analysis", "novelty requires family comparison"))
         return patterns
 
-    def estimate_uncertainty(self, input: TaskInput, context: dict) -> UncertaintyRegister:
+    def estimate_uncertainty(self, task_input: TaskInput, context: dict) -> UncertaintyRegister:
         unknowns = []
-        if len(input.text) < 40:
+        if len(task_input.text) < 40:
             unknowns.append("task specification may be underspecified")
-        if "novel" in input.text.lower():
+        if "novel" in task_input.text.lower():
             unknowns.append("representation fit uncertain")
         confidence = max(0.2, 1.0 - 0.2 * len(unknowns))
         return UncertaintyRegister(critical_unknowns=unknowns, confidence=confidence)
