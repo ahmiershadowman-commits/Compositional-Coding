@@ -5,8 +5,9 @@ context integrity, and frontier work.
 
 ## Session lifecycle
 
-The three plugins form a sequence. Run them in order at the start of any
-non-trivial session:
+The startup plugins run in sequence. The reference plugins are available anytime.
+
+**Startup sequence** — run in order at the start of any non-trivial session:
 
 ```
 /env-sense          → physical read of the environment before any assumptions
@@ -14,12 +15,19 @@ non-trivial session:
 /compositional-coding → ongoing steering during implementation
 ```
 
-You don't need all three every time. Use judgment:
+**Reference** — invoke when needed during a session:
+
+```
+/primitives         → return to fundamental stances when lost or drifting
+```
+
+You don't need all three startup plugins every time. Use judgment:
 
 - Quick, bounded task in a known codebase: skip to `/compositional-coding`
 - Returning to a project after a gap: run all three
 - New project or unfamiliar codebase: run all three, in order
 - Any time you feel uncertain about where the project actually is: `/context-rebuild`
+- Lost mid-session, abstraction proliferating, or geometry unclear: `/primitives`
 
 ---
 
@@ -54,6 +62,16 @@ confidence hardcoding, validation theater, completion pressure.
 **What it produces**: orientation before commitment, probe-before-implement discipline,
 explicit uncertainty tracking, and reassessment triggers throughout the session.
 
+### `/primitives`
+
+Eight fundamental stances (LOCATE, HOLD, SENSE, PROBE, BRIDGE, TRACK, YIELD,
+EMERGE) and their combinations into meta-stances. Domain-agnostic. Invoke when
+you've lost the thread, when geometry is wrong, or when momentum is overriding
+presence.
+
+**What it produces**: re-anchoring to the right stance for the current signal,
+with a pivot table mapping signals to transitions.
+
 ---
 
 ## Plugin locations
@@ -62,4 +80,5 @@ explicit uncertainty tracking, and reassessment triggers throughout the session.
 .claude/commands/env-sense.md
 .claude/commands/context-rebuild.md
 .claude/commands/compositional-coding.md
+.claude/commands/primitives.md
 ```
