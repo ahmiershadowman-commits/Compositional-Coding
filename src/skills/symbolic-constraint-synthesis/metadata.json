@@ -1,0 +1,33 @@
+{
+  "id": "symbolic-constraint-synthesis",
+  "family": "symbolic",
+  "version": "0.1.0",
+  "trigger_geometry": [
+    "combinatorial scheduling",
+    "configuration synthesis",
+    "declarative problem structure",
+    "hard constraints + soft preferences"
+  ],
+  "anti_trigger_geometry": [
+    "streaming sensor pipeline",
+    "heavily continuous dynamics with weak symbolic structure",
+    "ultra-low-latency real-time path where solver orchestration is excessive"
+  ],
+  "adjacent_families": [
+    "symbolic",
+    "formal",
+    "reflective",
+    "systems",
+    "metacognitive"
+  ],
+  "required_context_lanes": [
+    "active_task",
+    "metacognitive_state",
+    "pattern_references"
+  ],
+  "validation_tags": [
+    "solver-correctness",
+    "model-consistency"
+  ],
+  "status": "active"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "substrate-representation-evaluator",
+  "family": "metacognitive",
+  "version": "0.1.0",
+  "trigger_geometry": [
+    "novel",
+    "representation conflict",
+    "unclear substrate fit",
+    "risk of premature commitment",
+    "conflicting invariants"
+  ],
+  "anti_trigger_geometry": [
+    "routine localized bugfix with stable existing substrate",
+    "clear extension of existing architecture with no structural ambiguity"
+  ],
+  "adjacent_families": [
+    "symbolic",
+    "formal",
+    "reflective",
+    "systems",
+    "metacognitive"
+  ],
+  "required_context_lanes": [
+    "active_task",
+    "metacognitive_state",
+    "pattern_references"
+  ],
+  "validation_tags": [
+    "family-fit-sanity",
+    "microcase-adequacy",
+    "abstraction-leak-probe"
+  ],
+  "status": "active"
+}
