@@ -16,7 +16,12 @@ This repository now contains an initial runtime spine implementing:
 - `src/csp_runtime/stores.py`: context + persistence primitives.
 - `src/csp_runtime/skills.py`: skill contract and generic skill implementation.
 - `src/csp_runtime/runtime.py`: orchestrator that wires all modules together.
+- `src/csp_runtime/simulation.py`: multi-scenario frontier audit harness.
 - `tests/test_runtime.py`: baseline behavior tests.
+
+## Requirements
+
+Python 3.11+. No third-party dependencies — stdlib only.
 
 ## Quick check
 
