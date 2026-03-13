@@ -20,6 +20,7 @@ The startup plugins run in sequence. The reference plugins are available anytime
 ```
 /primitives         → return to fundamental stances when lost or drifting
 /pressure           → recognize and name what's pushing behavior off course
+/paradigm-hold      → make a theoretical frame commitment explicit and provisional
 ```
 
 You don't need all three startup plugins every time. Use judgment:
@@ -30,6 +31,7 @@ You don't need all three startup plugins every time. Use judgment:
 - Any time you feel uncertain about where the project actually is: `/context-rebuild`
 - Lost mid-session, abstraction proliferating, or geometry unclear: `/primitives`
 - Output feels automatic, confident, or polished in a way that feels unearned: `/pressure`
+- About to choose a theoretical frame that will shape downstream work: `/paradigm-hold`
 
 ---
 
@@ -86,6 +88,18 @@ that doesn't match the actual difficulty of the problem.
 **What it produces**: named identification of which pressures are active,
 what they feel like from inside, and what to do with them.
 
+### `/paradigm-hold`
+
+Explicit, provisional commitment to a theoretical frame. Distinct from a hypothesis
+(which predicts facts) — a paradigm shapes which questions can even be asked.
+Invoke when choosing a mathematical framework, causal structure, or foundational
+assumption that will shape downstream work. Guards against silent paradigm drift and
+frame-convergence pressure on frontier problems.
+
+**What it produces**: named commitment with load-bearing assumptions, yield signals,
+and at least one live rival frame. The surrender protocol captures why a frame died
+(contradicted vs. outrun vs. abandoned under pressure) as forward context.
+
 ---
 
 ## Plugin locations
@@ -96,4 +110,5 @@ what they feel like from inside, and what to do with them.
 .claude/commands/compositional-coding.md
 .claude/commands/primitives.md
 .claude/commands/pressure.md
+.claude/commands/paradigm-hold.md
 ```
