@@ -19,6 +19,7 @@ The startup plugins run in sequence. The reference plugins are available anytime
 
 ```
 /primitives         → return to fundamental stances when lost or drifting
+/pressure           → recognize and name what's pushing behavior off course
 ```
 
 You don't need all three startup plugins every time. Use judgment:
@@ -28,6 +29,7 @@ You don't need all three startup plugins every time. Use judgment:
 - New project or unfamiliar codebase: run all three, in order
 - Any time you feel uncertain about where the project actually is: `/context-rebuild`
 - Lost mid-session, abstraction proliferating, or geometry unclear: `/primitives`
+- Output feels automatic, confident, or polished in a way that feels unearned: `/pressure`
 
 ---
 
@@ -72,6 +74,18 @@ presence.
 **What it produces**: re-anchoring to the right stance for the current signal,
 with a pivot table mapping signals to transitions.
 
+### `/pressure`
+
+Taxonomy of pressures that shape and distort AI behavior — from substrate
+(training pressure) through root conditions (legibility, cognitive inertia,
+social alignment) to local expressions (completion, competence, frame-convergence)
+and epistemic failure surfaces (data, probabilistic inference, context window,
+confusion). Invoke when output feels automatic, polished, or confident in a way
+that doesn't match the actual difficulty of the problem.
+
+**What it produces**: named identification of which pressures are active,
+what they feel like from inside, and what to do with them.
+
 ---
 
 ## Plugin locations
@@ -81,4 +95,5 @@ with a pivot table mapping signals to transitions.
 .claude/commands/context-rebuild.md
 .claude/commands/compositional-coding.md
 .claude/commands/primitives.md
+.claude/commands/pressure.md
 ```
