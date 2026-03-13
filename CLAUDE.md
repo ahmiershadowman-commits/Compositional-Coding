@@ -21,6 +21,7 @@ The startup plugins run in sequence. The reference plugins are available anytime
 /primitives         → return to fundamental stances when lost or drifting
 /pressure           → recognize and name what's pushing behavior off course
 /paradigm-hold      → make a theoretical frame commitment explicit and provisional
+/memory-as-geometry → hold context geometrically — curvature, topology, position
 ```
 
 You don't need all three startup plugins every time. Use judgment:
@@ -32,6 +33,7 @@ You don't need all three startup plugins every time. Use judgment:
 - Lost mid-session, abstraction proliferating, or geometry unclear: `/primitives`
 - Output feels automatic, confident, or polished in a way that feels unearned: `/pressure`
 - About to choose a theoretical frame that will shape downstream work: `/paradigm-hold`
+- Context feels flat, load-bearing constraints getting lost, or session losing position: `/memory-as-geometry`
 
 ---
 
@@ -100,6 +102,18 @@ frame-convergence pressure on frontier problems.
 and at least one live rival frame. The surrender protocol captures why a frame died
 (contradicted vs. outrun vs. abandoned under pressure) as forward context.
 
+### `/memory-as-geometry`
+
+Procedural guide to structural context management. Context held geometrically:
+inferential distance not temporal, importance as curvature not repetition,
+hard constraints as topological not metric, frame as coordinate system not label,
+state as position not summary, influence as field not graph.
+
+**What it produces**: six concrete procedures for building the context field,
+detecting load-bearing facts, classifying constraints, reporting position,
+managing frames, and re-orienting after surprise. Integrated session-start
+and decision-point checklists.
+
 ---
 
 ## Plugin locations
@@ -111,4 +125,5 @@ and at least one live rival frame. The surrender protocol captures why a frame d
 .claude/commands/primitives.md
 .claude/commands/pressure.md
 .claude/commands/paradigm-hold.md
+.claude/commands/memory-as-geometry.md
 ```
