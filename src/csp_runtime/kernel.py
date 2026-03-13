@@ -38,11 +38,10 @@ class CSPKernel:
 
     def classify_task(self, input: TaskInput, context: dict) -> ProblemGeometry:
         text = input.text.lower()
-        words = set(text.replace("/", " ").replace("-", " ").split())
         labels = ["mixed"]
         if any(k in text for k in ["constraint", "satisfy", "schedule", "sat", "smt"]):
             labels.append("constraint-rich")
-        if any(k in words for k in ["latency", "throughput", "protocol", "cache"]) or "i/o" in text or " io " in f" {text} ":
+        if any(k in text for k in ["latency", "throughput", "protocol", "io", "cache"]):
             labels.append("systems")
         if any(k in text for k in ["proof", "invariant", "formal", "model check"]):
             labels.append("formal")
@@ -56,8 +55,6 @@ class CSPKernel:
             patterns.append(CSPPatternActivation("constraint-lens", "constraints dominate geometry"))
         if "novel" in geometry.labels:
             patterns.append(CSPPatternActivation("response-pathway-analysis", "novelty requires family comparison"))
-        if "systems" in geometry.labels:
-            patterns.append(CSPPatternActivation("trace-driven-diagnosis", "systems signals require trace-minded reasoning"))
         return patterns
 
     def estimate_uncertainty(self, input: TaskInput, context: dict) -> UncertaintyRegister:
@@ -74,20 +71,16 @@ class CSPKernel:
         return FamilyComparison(ranked=ranked)
 
     def evaluate_commitment_gate(self, state: RuntimeState) -> CommitmentDecision:
-        meta_lane = state.context_lanes.get("metacognitive_state", {})
-        has_compare = any(p in state.active_patterns for p in ["response-pathway-analysis", "constraint-lens", "trace-driven-diagnosis"])
-        has_validation_path = "validation_plan" in meta_lane
-        has_critical_unknowns = bool((state.uncertainty.critical_unknowns if state.uncertainty else []))
-        if has_compare and has_validation_path and not has_critical_unknowns:
-            return CommitmentDecision(True, "comparison done, validation path present, uncertainty reduced")
+        has_compare = any(p in state.active_patterns for p in ["response-pathway-analysis", "constraint-lens"])
+        has_validation_path = "validation_plan" in state.context_lanes.get("metacognitive_state", {})
+        if has_compare and has_validation_path and (state.uncertainty and state.uncertainty.confidence >= 0.5):
+            return CommitmentDecision(True, "comparison done, validation path present, uncertainty manageable")
         return CommitmentDecision(False, "need probe/formalization before implementation")
 
     def detect_abstraction_leak(self, state: RuntimeState, artifacts: dict) -> list[LeakReport]:
         leaks: list[LeakReport] = []
         if artifacts.get("direct_impl_without_probe"):
             leaks.append(LeakReport("implementation happened without probe evidence", "high"))
-        if artifacts.get("validation") and artifacts["validation"].get("status") == "fail":
-            leaks.append(LeakReport("implementation/representation mismatch surfaced in validation", "medium"))
         return leaks
 
     def decide_next_action(self, state: RuntimeState) -> NextAction:
@@ -97,9 +90,6 @@ class CSPKernel:
         return NextAction(RuntimeEventType.PROBE_REQUIRED, decision.reason)
 
     def reassess(self, after: RuntimeEvent, state: RuntimeState) -> ReassessmentResult:
-        validation_state = state.context_lanes.get("metacognitive_state", {}).get("validation", {})
-        if after.event_type == RuntimeEventType.VALIDATION_REQUIRED and validation_state.get("status") == "fail":
+        if after.event_type == RuntimeEventType.VALIDATION_REQUIRED and state.context_lanes.get("validation", {}).get("status") == "fail":
             return ReassessmentResult(True, "validation failed")
-        if after.event_type == RuntimeEventType.REASSESSMENT_REQUIRED:
-            return ReassessmentResult(True, "explicit reassessment requested")
         return ReassessmentResult(False, "no reassessment trigger")

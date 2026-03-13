@@ -1,75 +1,9 @@
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
 from .models import ContextLaneType, RuntimeState
-
-
-_TOKEN_SPLIT = re.compile(r"[^a-z0-9]+")
-_STOPWORDS = {
-    "and",
-    "or",
-    "the",
-    "a",
-    "an",
-    "with",
-    "without",
-    "of",
-    "to",
-    "for",
-    "is",
-    "are",
-    "where",
-    "when",
-    "low",
-    "high",
-    "real",
-    "time",
-}
-_SYNONYM_MAP = {
-    "constraint": "constraint-rich",
-    "constraints": "constraint-rich",
-    "combinatorial": "constraint-rich",
-    "declarative": "constraint-rich",
-    "sat": "constraint-rich",
-    "smt": "constraint-rich",
-    "formal": "formal",
-    "invariant": "formal",
-    "proof": "formal",
-    "verification": "formal",
-    "protocol": "systems",
-    "latency": "systems",
-    "throughput": "systems",
-    "io": "systems",
-    "performance": "systems",
-    "network": "systems",
-    "streaming": "systems",
-    "novel": "novel",
-    "frontier": "novel",
-    "metacognitive": "metacognitive",
-    "representation": "metacognitive",
-    "reflective": "reflective",
-    "macro": "reflective",
-    "rewrite": "reflective",
-}
-
-
-def _tokenize(text: str) -> list[str]:
-    return [t for t in _TOKEN_SPLIT.split(text.lower()) if t and t not in _STOPWORDS]
-
-
-def _normalize_signals(signals: list[str]) -> set[str]:
-    normalized: set[str] = set()
-    for signal in signals:
-        lowered = signal.lower()
-        normalized.add(lowered)
-        for token in _tokenize(lowered):
-            mapped = _SYNONYM_MAP.get(token)
-            if mapped:
-                normalized.add(mapped)
-    return normalized
 
 
 @dataclass
@@ -119,22 +53,13 @@ class GenericSkill:
         self.trigger_geometry = metadata["trigger_geometry"]
         self.anti_trigger_geometry = metadata["anti_trigger_geometry"]
         self._required_context_lanes = [ContextLaneType(l) for l in metadata["required_context_lanes"]]
-        self._trigger_signals = _normalize_signals(self.trigger_geometry + [self.family])
-        self._anti_signals = _normalize_signals(self.anti_trigger_geometry)
-
-    def score(self, geometry_labels: list[str]) -> tuple[float, int, int]:
-        labels = _normalize_signals(geometry_labels)
-        trigger_overlap = len(labels.intersection(self._trigger_signals))
-        anti_overlap = len(labels.intersection(self._anti_signals))
-        score = max(0.0, trigger_overlap * 0.45 - anti_overlap * 0.8 + 0.1)
-        return score, trigger_overlap, anti_overlap
 
     def preflight(self, state: RuntimeState) -> SkillPreflightResult:
-        labels = _normalize_signals(state.geometry.labels if state.geometry else [])
-        anti = labels.intersection(self._anti_signals)
+        labels = set(state.geometry.labels if state.geometry else [])
+        anti = labels.intersection(self.anti_trigger_geometry)
         if anti:
             return SkillPreflightResult("reject", [f"anti-trigger matched: {sorted(anti)}"])
-        good = labels.intersection(self._trigger_signals)
+        good = labels.intersection(self.trigger_geometry)
         if not good:
             return SkillPreflightResult("defer", ["no strong trigger geometry overlap"])
         return SkillPreflightResult("accept", [f"trigger geometry overlap: {sorted(good)}"])
@@ -152,7 +77,7 @@ class GenericSkill:
         return SkillExecutionResult("ok", details={"skill": self.id})
 
     def validate(self, result: SkillExecutionResult, state: RuntimeState) -> ValidationResult:
-        return ValidationResult("pass", ["generic validation pass"])
+        return ValidationResult("pass", ["generic validation pass"]) 
 
     def handoff(self, result: SkillExecutionResult, state: RuntimeState) -> dict[str, Any]:
         return {"skill": self.id, "status": result.status}
