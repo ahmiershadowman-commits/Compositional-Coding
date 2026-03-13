@@ -1,0 +1,33 @@
+{
+  "id": "systems-protocol-performance-forensics",
+  "family": "systems",
+  "version": "0.1.0",
+  "trigger_geometry": [
+    "protocol failure",
+    "network handshake issue",
+    "unexplained latency",
+    "memory / I/O / compute bottleneck suspicion"
+  ],
+  "anti_trigger_geometry": [
+    "purely declarative symbolic problem",
+    "algorithmically tiny task with no systems bottleneck"
+  ],
+  "adjacent_families": [
+    "symbolic",
+    "formal",
+    "reflective",
+    "systems",
+    "metacognitive"
+  ],
+  "required_context_lanes": [
+    "active_task",
+    "metacognitive_state",
+    "artifact_state"
+  ],
+  "validation_tags": [
+    "trace-reproduction",
+    "before-after-metrics",
+    "protocol-conformance"
+  ],
+  "status": "active"
+}

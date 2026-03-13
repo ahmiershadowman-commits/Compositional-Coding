@@ -1,0 +1,13 @@
+{
+  "skill_id": "reflective-metaprogramming",
+  "csp_patterns": [
+    "response-pathway-analysis",
+    "uncertainty-mapping",
+    "constraint-lens"
+  ],
+  "reassessment_triggers": [
+    "failed_validation",
+    "abstraction_leak",
+    "tool_mismatch"
+  ]
+}
