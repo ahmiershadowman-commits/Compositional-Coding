@@ -1,0 +1,32 @@
+{
+  "id": "reflective-metaprogramming",
+  "family": "reflective",
+  "version": "0.1.0",
+  "trigger_geometry": [
+    "repetitive transformation work",
+    "repeated structural edits across files",
+    "interpreter or DSL opportunities"
+  ],
+  "anti_trigger_geometry": [
+    "tiny one-off localized edits",
+    "domains where generated code would obscure critical correctness"
+  ],
+  "adjacent_families": [
+    "symbolic",
+    "formal",
+    "reflective",
+    "systems",
+    "metacognitive"
+  ],
+  "required_context_lanes": [
+    "active_task",
+    "metacognitive_state",
+    "artifact_state"
+  ],
+  "validation_tags": [
+    "golden-io-transform",
+    "idempotence",
+    "syntax-validity"
+  ],
+  "status": "active"
+}

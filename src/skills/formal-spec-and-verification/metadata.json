@@ -1,0 +1,31 @@
+{
+  "id": "formal-spec-and-verification",
+  "family": "formal",
+  "version": "0.1.0",
+  "trigger_geometry": [
+    "mission-critical correctness",
+    "invariant-rich logic",
+    "catastrophic failure cost",
+    "concurrency / state-machine complexity"
+  ],
+  "anti_trigger_geometry": [
+    "purely exploratory disposable prototype with low failure cost"
+  ],
+  "adjacent_families": [
+    "symbolic",
+    "formal",
+    "reflective",
+    "systems",
+    "metacognitive"
+  ],
+  "required_context_lanes": [
+    "active_task",
+    "metacognitive_state",
+    "project_memory"
+  ],
+  "validation_tags": [
+    "proof-obligations",
+    "invariant-preservation"
+  ],
+  "status": "active"
+}
