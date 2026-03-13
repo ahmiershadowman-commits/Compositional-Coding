@@ -1,8 +1,8 @@
-# CSP-Governed Metacognitive Plugin Runtime (MVP)
+# Compositional Coding Plugin
 
 This repository now contains an initial runtime spine implementing:
 
-- CSP kernel shell with geometry classification, uncertainty tracking, and commitment gating.
+- Cognitive Scaffolding Protocol kernel shell with geometry classification, uncertainty tracking, and commitment gating.
 - Hook dispatcher and canonical lifecycle event types.
 - Lane-based context manager with branch and merge support.
 - In-memory log store, pattern DB, decision store, and validation library.
