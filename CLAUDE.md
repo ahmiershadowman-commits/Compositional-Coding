@@ -18,10 +18,12 @@ The startup plugins run in sequence. The reference plugins are available anytime
 **Reference** — invoke when needed during a session:
 
 ```
-/primitives         → return to fundamental stances when lost or drifting
-/pressure           → recognize and name what's pushing behavior off course
-/paradigm-hold      → make a theoretical frame commitment explicit and provisional
-/memory-as-geometry → hold context geometrically — curvature, topology, position
+/primitives             → return to fundamental stances when lost or drifting
+/pressure               → recognize and name what's pushing behavior off course
+/paradigm-hold          → make a theoretical frame commitment explicit and provisional
+/memory-as-geometry     → hold context geometrically — curvature, topology, position
+/bridge-protocol        → structured cross-domain analogical reasoning
+/contradiction-exploit  → use a contradiction as a probe, not a problem to resolve
 ```
 
 You don't need all three startup plugins every time. Use judgment:
@@ -34,6 +36,8 @@ You don't need all three startup plugins every time. Use judgment:
 - Output feels automatic, confident, or polished in a way that feels unearned: `/pressure`
 - About to choose a theoretical frame that will shape downstream work: `/paradigm-hold`
 - Context feels flat, load-bearing constraints getting lost, or session losing position: `/memory-as-geometry`
+- Need to find a known structure this problem might be an instance of: `/bridge-protocol`
+- Holding two incompatible models with evidence for both: `/contradiction-exploit`
 
 ---
 
@@ -114,6 +118,31 @@ detecting load-bearing facts, classifying constraints, reporting position,
 managing frames, and re-orienting after surprise. Integrated session-start
 and decision-point checklists.
 
+### `/bridge-protocol`
+
+Structured cross-domain analogical reasoning. Names the structural property
+first, finds candidate fields that have worked on it, identifies what transfers
+and — critically — where each analogy breaks. The break point is the most
+valuable part of the bridge.
+
+**What it produces**: a taxonomy of bridgeable structural types (locality,
+composability, constraint propagation, symmetry, cohomological obstruction,
+etc.), a five-step bridging procedure, and concrete examples with explicit
+break points. Integrates with `/paradigm-hold` (bridge-as-frame) and
+`/contradiction-exploit` (bridge as shared-assumption finder).
+
+### `/contradiction-exploit`
+
+Procedure for working with contradictions productively. Two incompatible models
+with evidence for both are not a problem to resolve — they are a probe waiting
+to be designed. Guards against premature collapse and paraconsistent explosion.
+
+**What it produces**: five-step protocol (name both sides → find shared
+assumption → design discriminating probe → hold paraconsistently → update
+asymmetrically on result). Covers the case where the contradiction is the
+answer (regime boundaries, non-classical domains). Integrates with
+`/bridge-protocol` when the shared assumption is a bridgeable structural property.
+
 ---
 
 ## Plugin locations
@@ -126,4 +155,6 @@ and decision-point checklists.
 .claude/commands/pressure.md
 .claude/commands/paradigm-hold.md
 .claude/commands/memory-as-geometry.md
+.claude/commands/bridge-protocol.md
+.claude/commands/contradiction-exploit.md
 ```
