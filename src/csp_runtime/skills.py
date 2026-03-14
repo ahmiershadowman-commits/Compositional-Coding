@@ -77,7 +77,7 @@ class GenericSkill:
         return SkillExecutionResult("ok", details={"skill": self.id})
 
     def validate(self, result: SkillExecutionResult, state: RuntimeState) -> ValidationResult:
-        return ValidationResult("pass", ["generic validation pass"]) 
+        return ValidationResult("pass", ["generic validation pass"])
 
     def handoff(self, result: SkillExecutionResult, state: RuntimeState) -> dict[str, Any]:
         return {"skill": self.id, "status": result.status}
@@ -94,4 +94,6 @@ class SkillRegistry:
         return list(self._skills.values())
 
     def get(self, skill_id: str) -> GenericSkill:
+        if skill_id not in self._skills:
+            raise KeyError(f"Skill '{skill_id}' is not registered")
         return self._skills[skill_id]

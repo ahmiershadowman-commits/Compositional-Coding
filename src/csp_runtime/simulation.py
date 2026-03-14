@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 
 from .models import RuntimeEvent, RuntimeEventType
 from .runtime import Runtime
+
+_SKILLS_DIR = str(Path(__file__).parent.parent / "skills")
 
 
 @dataclass
@@ -45,7 +48,7 @@ def run_scenario(runtime: Runtime, scenario_name: str, text: str, validation_sta
 
 
 def run_frontier_audit() -> list[ScenarioResult]:
-    runtime = Runtime("src/skills")
+    runtime = Runtime(_SKILLS_DIR)
     scenarios = [
         ("constraint_novel", "Novel constraint scheduling with hard/soft constraints and invariants", "pass"),
         ("systems_perf", "Protocol handshake latency spikes and throughput collapse under load", "pass"),
