@@ -84,6 +84,21 @@ class Router:
 
         Returns (allowed, all_findings, reason).
         """
+        # Persist the proposal before evaluation so commit/block UPDATEs have a row to hit
+        self.store.add_proposal(
+            branch_id=state.branch_id,
+            action_type=proposal.action_type.value,
+            payload_ref=proposal.payload_ref,
+            rationale=proposal.rationale,
+            frame_id=proposal.frame_id,
+            expected_evidence_gain=proposal.expected_evidence_gain,
+            expected_irreversibility=proposal.expected_irreversibility,
+            touched_constraints=proposal.touched_constraints,
+            touched_anomalies=proposal.touched_anomalies,
+            fallback_path=proposal.fallback_path,
+            proposal_id=proposal.proposal_id,
+        )
+
         # Check and apply conservative mode before evaluating
         state.enter_conservative()
         if state.is_conservative:

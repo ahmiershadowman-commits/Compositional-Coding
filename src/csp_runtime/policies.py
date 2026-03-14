@@ -46,6 +46,8 @@ class DistillationPolicy:
     min_use_count: int = 3                # must be used this many times to be a candidate
     require_non_contradictory: bool = True
     require_frame_clean: bool = True      # frame must have resolved cleanly, not under pressure
+    # NOTE: require_frame_clean is defined but not yet enforced in distillation.py —
+    # requires frame death reason to be stored on the record at capture time (Phase F).
     # Load-bearing items are NEVER stubbed during commit (hydration policy enforces this)
 
 
@@ -61,6 +63,8 @@ class HydrationPolicy:
     always_load_procedural: bool = True
     max_episodic_records: int = 20          # cap to prevent context bloat
     never_stub_load_bearing: bool = True    # enforced invariant — do not change
+    # NOTE: never_stub_load_bearing is defined but not yet enforced in retrieval.py —
+    # requires load_bearing flag to be stored on memory records (Phase F).
 
 
 @dataclass

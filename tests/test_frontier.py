@@ -643,6 +643,23 @@ class TestRouterLifecycle(unittest.TestCase):
         loaded = self.store.load_latest_state(bid)
         self.assertIsNotNone(loaded)
 
+    def test_propose_persists_proposal_to_store(self):
+        """Proposal record must exist in DB before commit_proposal() is called."""
+        sid = self.router.start_session()
+        bid = self.router.fork_branch(sid, BranchType.PROBE.value, "probe intent")
+        state = _minimal_state(branch_id=bid)
+        proposal = _minimal_proposal(action_type=ActionType.PROBE)
+
+        self.router.propose(sid, state, proposal)
+
+        # Verify proposal_created event was emitted (proves add_proposal was called)
+        events = self.store.get_events(branch_id=bid, event_type="proposal_created")
+        self.assertEqual(len(events), 1)
+
+        # And commitment_made event follows (proves commit_proposal hit an actual row)
+        commit_events = self.store.get_events(branch_id=bid, event_type="commitment_made")
+        self.assertEqual(len(commit_events), 1)
+
     def test_propose_blocked_persists_findings(self):
         sid = self.router.start_session()
         bid = self.router.fork_branch(sid, BranchType.IMPLEMENTATION.value, "implement X")

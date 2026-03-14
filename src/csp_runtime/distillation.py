@@ -15,6 +15,8 @@ more uses or after the frame situation changes.
 
 from __future__ import annotations
 
+import json
+
 from .policies import DistillationPolicy, DEFAULT_POLICY
 from .store import Store
 
@@ -61,7 +63,6 @@ def distill_branch(
             continue
 
         content = record.get("content", "{}")
-        import json
         if isinstance(content, str):
             try:
                 content = json.loads(content)

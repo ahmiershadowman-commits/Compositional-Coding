@@ -392,8 +392,9 @@ class Store:
         touched_constraints: list[str] | None = None,
         touched_anomalies: list[str] | None = None,
         fallback_path: str | None = None,
+        proposal_id: str | None = None,
     ) -> str:
-        pid = _new_id("prop_")
+        pid = proposal_id or _new_id("prop_")
         with self._tx() as c:
             c.execute(
                 """INSERT INTO action_proposals
